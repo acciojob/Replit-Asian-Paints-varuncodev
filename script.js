@@ -1,34 +1,32 @@
-const gridContainer = document.getElementById("grid-container");
+let gridContainer = document.getElementById("grid-container");
 
-// Create 3x3 blocks dynamically
-for (let i = 1; i <= 9; i++) {
-  const block = document.createElement("div");
-  block.classList.add("grid-item");
-  block.id = i;
-  block.innerText = i;
-  gridContainer.appendChild(block);
+// Generate grid items only once
+if (gridContainer.children.length === 0) {
+  for (let i = 1; i <= 9; i++) {
+    const box = document.createElement("div");
+    box.classList.add("grid-item");
+    box.id = i;
+    box.innerText = i;
+    gridContainer.appendChild(box);
+  }
 }
 
-// Change Color Button Click
 document.getElementById("change_button").addEventListener("click", () => {
+  resetColors();
+
   const idValue = document.getElementById("block_id").value;
   const colorValue = document.getElementById("colour_id").value;
 
-  resetBlocks();
-
   if (idValue >= 1 && idValue <= 9) {
-    const selectedBlock = document.getElementById(idValue);
-    selectedBlock.style.backgroundColor = colorValue;
-  } else {
-    alert("Please enter a valid Block ID between 1 and 9");
+    document.getElementById(idValue).style.backgroundColor = colorValue;
   }
 });
 
-// Reset Button
-document.getElementById("Reset").addEventListener("click", resetBlocks);
+document.getElementById("reset_button").addEventListener("click", () => {
+  resetColors();
+});
 
-// Reset all to transparent
-function resetBlocks() {
+function resetColors() {
   for (let i = 1; i <= 9; i++) {
     document.getElementById(i).style.backgroundColor = "transparent";
   }
